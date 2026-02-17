@@ -1,17 +1,27 @@
 import streamlit as st
 import numpy as np
-from keras.models import load_model  # standalone keras
+from tensorflow.keras.models import load_model  # TF2-kompatibel
 from PIL import Image, ImageOps
+import os
 
 st.set_page_config(page_title="Tier-Erkennung", page_icon="🐴")
 
 # Modell laden (nur einmal)
 @st.cache_resource
 def load_my_model():
-    model = load_model("keras_Model.h5", compile=False)
+    # Lade das konvertierte TF2-Modell (SavedModel-Format)
+    model_path = "keras_Model_TF2"
+    if not os.path.exists(model_path):
+        st.error("Modellordner 'keras_Model_TF2' nicht gefunden!")
+        return None
+    model = load_model(model_path, compile=False)
     return model
 
 model = load_my_model()
+
+# Falls das Modell nicht geladen werden konnte, abbrechen
+if model is None:
+    st.stop()
 
 # Labels laden
 with open("labels.txt", "r") as f:
