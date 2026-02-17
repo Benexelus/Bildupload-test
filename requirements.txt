@@ -1,4 +1,8 @@
-tensorflow==2.15.0
-streamlit==1.32.0
+pip==24.0
+setuptools==69.5.1
+wheel==0.43.0
+
+streamlit==1.32.2
 numpy==1.26.4
 pillow==10.2.0
+tensorflow-cpu==2.15.0
