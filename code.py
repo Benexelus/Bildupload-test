@@ -1,11 +1,11 @@
-import streamlit as st
+iimport streamlit as st
 import numpy as np
-from tensorflow.keras.models import load_model  # geändert auf tensorflow.keras
+from keras.models import load_model  # standalone keras
 from PIL import Image, ImageOps
 
 st.set_page_config(page_title="Tier-Erkennung", page_icon="🐴")
 
-# Modell laden (wird nur einmal geladen)
+# Modell laden (nur einmal)
 @st.cache_resource
 def load_my_model():
     model = load_model("keras_Model.h5", compile=False)
@@ -45,7 +45,7 @@ if uploaded_file is not None:
     prediction = model.predict(data)
     index = np.argmax(prediction)
 
-    class_name = class_names[index][2:].strip()  # Label bereinigen
+    class_name = class_names[index][2:].strip()
     confidence_score = prediction[0][index]
 
     st.subheader("🔎 Ergebnis")
