@@ -1,0 +1,3 @@
+0 Pferd
+1 Esel
+2 Zebra
