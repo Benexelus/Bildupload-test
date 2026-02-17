@@ -1,4 +1,4 @@
-iimport streamlit as st
+import streamlit as st
 import numpy as np
 from keras.models import load_model  # standalone keras
 from PIL import Image, ImageOps
