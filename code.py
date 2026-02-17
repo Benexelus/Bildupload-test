@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-from tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model  # geändert auf tensorflow.keras
 from PIL import Image, ImageOps
 
 st.set_page_config(page_title="Tier-Erkennung", page_icon="🐴")
@@ -25,10 +25,11 @@ uploaded_file = st.file_uploader(
 )
 
 if uploaded_file is not None:
+    # Bild öffnen und in RGB konvertieren
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Hochgeladenes Bild", use_column_width=True)
 
-    # Bild vorbereiten
+    # Bildgröße anpassen
     size = (224, 224)
     image = ImageOps.fit(image, size, Image.Resampling.LANCZOS)
 
@@ -44,7 +45,7 @@ if uploaded_file is not None:
     prediction = model.predict(data)
     index = np.argmax(prediction)
 
-    class_name = class_names[index][2:].strip()
+    class_name = class_names[index][2:].strip()  # Label bereinigen
     confidence_score = prediction[0][index]
 
     st.subheader("🔎 Ergebnis")
